@@ -1,0 +1,48 @@
+CREATE DATABASE warehouse_db;
+
+USE warehouse_db;
+
+CREATE TABLE warehouse (
+    warehouse_id INT PRIMARY KEY,
+    warehouse_name VARCHAR(100),
+    location VARCHAR(100),
+    capacity INT,
+    manager_name VARCHAR(100)
+);
+
+CREATE TABLE product (
+    product_id INT PRIMARY KEY,
+    product_name VARCHAR(100),
+    category VARCHAR(100),
+    unit_price DECIMAL(10,2),
+    reorder_level INT
+);
+
+CREATE TABLE supplier (
+    supplier_id INT PRIMARY KEY,
+    supplier_name VARCHAR(100),
+    contact_number VARCHAR(15),
+    email VARCHAR(100),
+    address VARCHAR(200)
+);
+
+CREATE TABLE inventory (
+    inventory_id INT PRIMARY KEY,
+    warehouse_id INT,
+    product_id INT,
+    quantity_available INT,
+    last_updated DATE,
+    FOREIGN KEY (warehouse_id) REFERENCES warehouse(warehouse_id),
+    FOREIGN KEY (product_id) REFERENCES product(product_id)
+);
+
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    supplier_id INT,
+    order_date DATE,
+    total_amount DECIMAL(10,2),
+    status VARCHAR(50),
+    FOREIGN KEY (supplier_id) REFERENCES supplier(supplier_id)
+);
+
+SHOW TABLES;
